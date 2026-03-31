@@ -10,7 +10,7 @@ La API permite realizar operaciones  (Creary y  Leer) sobre los datos de los cli
 
 ## Tecnologías Utilizadas
 - Java 21
-- Spring Boot
+- Spring Web 
 - Spring Data JPA
 - H2 Database (base de datos en memoria)
 - Maven (gestión de dependencias)
