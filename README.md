@@ -14,6 +14,13 @@ La API permite realizar operaciones  (Creary y  Leer) sobre los datos de los cli
 - Spring Data JPA
 - H2 Database (base de datos en memoria)
 - Maven (gestión de dependencias)
+- Lombok 
+- JUnit (para pruebas unitarias)
+- Mockito (para pruebas unitarias)
+- Swagger (para documentación de la API)
+- MapStruct (para mapeo de objetos)
+- Spring Validation (para validación de datos)
+
 ## Configuración
 1. Clona el repositorio:
    git clone https://github.com/Alejandrobaltodano2/GestionClientes.git
