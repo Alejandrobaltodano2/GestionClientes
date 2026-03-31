@@ -14,6 +14,8 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+
     @ExceptionHandler(ClienteInvalidoException.class)
     public ResponseEntity<Map<String, Object>> handleClienteInvalido(
             ClienteInvalidoException ex,

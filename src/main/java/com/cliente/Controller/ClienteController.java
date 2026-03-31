@@ -23,16 +23,33 @@ public class ClienteController {
     @PostMapping
     @Operation(summary = "Crear un nuevo Cliente", description = "Crea un nuevo cliente con los datos proporcionados")
 
-    public ResponseEntity<ClienteDTO> crearCliente(@RequestBody @Valid ClienteDTO clienteDTO)
+    public ResponseEntity<ClienteDTO> crearCliente(
+                                                   @RequestBody @Valid ClienteDTO clienteDTO ,
+                                                   @RequestHeader("consumerId") String consumerId,
+                                                   @RequestHeader("traceparent") String traceparent,
+                                                   @RequestHeader("deviceType") String deviceType,
+                                                   @RequestHeader("deviceId") String deviceId
+                                                    )
     {
+        if (!deviceType.equals("IOS") && !deviceType.equals("AND")) {
+            return ResponseEntity.badRequest().build();
+        }
         service.crearCliente(clienteDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);    }
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
+    }
 
     @GetMapping
     @Operation(summary = "Obtener todos los Clientes", description = "Listar todos los clientes registrados")
     public ResponseEntity<PaginacionResponse<ClienteDTO>> listarClientes(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size ,
+            @RequestHeader("consumerId") String consumerId,
+            @RequestHeader("traceparent") String traceparent,
+            @RequestHeader("deviceType") String deviceType,
+            @RequestHeader("deviceId") String deviceId) {
+        if (!deviceType.equals("IOS") && !deviceType.equals("AND")) {
+            return ResponseEntity.badRequest().build();
+        }
         PaginacionResponse<ClienteDTO> clientes = service.mostrarTodosClientes(page, size);
         return ResponseEntity.ok(clientes);
 

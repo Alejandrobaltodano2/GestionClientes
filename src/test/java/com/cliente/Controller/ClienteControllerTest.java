@@ -8,6 +8,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -29,7 +31,12 @@ public class ClienteControllerTest {
 
         mockMvc.perform(post("/clientes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ControllerHelper.creacionClienteJson()))
+                        .content(ControllerHelper.creacionClienteJson())
+                .header("consumerId", "SMP")
+                .header("traceparent", UUID.randomUUID().toString())
+                .header("deviceType", "IOS")
+                .header("deviceId", UUID.randomUUID().toString()))
+
                 .andExpect(status().isCreated());
     }
 
@@ -39,14 +46,22 @@ public class ClienteControllerTest {
 
         mockMvc.perform(post("/clientes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ControllerHelper.errorClienteJsonIsNull()))
+                        .content(ControllerHelper.errorClienteJsonIsNull())
+                        .header("consumerId", "SMP")
+                        .header("traceparent", UUID.randomUUID().toString())
+                        .header("deviceType", "IOS")
+                        .header("deviceId", UUID.randomUUID().toString()))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void listarCliente_devuelve200() throws Exception {
         mockMvc.perform(get("/clientes?page=0&size=5")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("consumerId", "SMP")
+                        .header("traceparent", UUID.randomUUID().toString())
+                        .header("deviceType", "IOS")
+                        .header("deviceId", UUID.randomUUID().toString()))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.pageNumber").value(0));
     }
