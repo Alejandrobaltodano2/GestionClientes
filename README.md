@@ -2,7 +2,7 @@
 
 
 Este proyecto es una API REST desarrollada en Java utilizando Spring Boot para la gestión de clientes.
-La API permite realizar operaciones  (Creary y  Leer) sobre los datos de los clientes.
+La API permite realizar las siguientes operaciones Crear y Listar.
 
 ## Características
 - Crear un nuevo cliente: Permite agregar un nuevo cliente a la base de datos.
@@ -28,7 +28,7 @@ La API permite realizar operaciones  (Creary y  Leer) sobre los datos de los cli
     cd GestionClientes
 3. Ejecuta la aplicación:
     mvn spring-boot:run
-4. La API estará disponible en `http://localhost:8082/api/clientes`.
+4. La API estará disponible en `http://localhost:8082/clientes`.
 ## Endpoints
 - `POST /api/clientes`: Crea un nuevo cliente.
 - `GET /api/clientes`: Obtiene una lista de todos los clientes.
