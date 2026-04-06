@@ -31,11 +31,9 @@ public class ClienteController {
                                                    @RequestHeader("deviceId") String deviceId
                                                     )
     {
-        if (!deviceType.equals("IOS") && !deviceType.equals("AND")) {
-            return ResponseEntity.badRequest().build();
-        }
+
         service.crearCliente(clienteDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
@@ -47,9 +45,6 @@ public class ClienteController {
             @RequestHeader("traceparent") String traceparent,
             @RequestHeader("deviceType") String deviceType,
             @RequestHeader("deviceId") String deviceId) {
-        if (!deviceType.equals("IOS") && !deviceType.equals("AND")) {
-            return ResponseEntity.badRequest().build();
-        }
         PaginacionResponse<ClienteDTO> clientes = service.mostrarTodosClientes(page, size);
         return ResponseEntity.ok(clientes);
 

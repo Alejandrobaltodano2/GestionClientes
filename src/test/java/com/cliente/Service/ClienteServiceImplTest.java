@@ -19,8 +19,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,6 +38,7 @@ public class ClienteServiceImplTest {
 
     @Mock
     private ClienteMapper mapper;
+
 
     @Test
     void crearCliente_Exito() {
@@ -62,15 +62,26 @@ public class ClienteServiceImplTest {
     }
 
     @Test
-    void listarClientes()
-    {
+    void listarClientes() {
+        List<Cliente> clientes = ClienteHelper.clienteList();
+        when(repository.findAll(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(clientes));
 
-            List<Cliente> clientes = ClienteHelper.clienteList();
-            when(repository.findAll(any(Pageable.class)))
-                    .thenReturn(new PageImpl<>(clientes));
+        when(mapper.toDto(any(Cliente.class)))
+                .thenAnswer(invocation -> {
+                    Cliente c = invocation.getArgument(0);
+                    return ClienteDTO.builder()
+                            .id(c.getId())
+                            .nombre(c.getNombre())
+                            .apellidoPaterno(c.getApellidoPaterno())
+                            .apellidoMaterno(c.getApellidoMaterno())
+                            .estado(c.getEstado())
+                            .build();
+                });
 
-            var result =  clienteService.mostrarTodosClientes(0, 10);
+        var result = clienteService.mostrarTodosClientes(0, 10);
+
         assertNotNull(result);
-
+        assertEquals("Juan Perez Gomez", result.getContent().get(0).getNombreCompleto());
     }
 }

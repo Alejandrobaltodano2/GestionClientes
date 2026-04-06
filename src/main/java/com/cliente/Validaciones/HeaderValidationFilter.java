@@ -34,8 +34,9 @@ public class HeaderValidationFilter implements Filter {
             throw new ClienteInvalidoException("Headers requeridos faltantes");
 
         }
+        deviceType = deviceType.trim(); // elimina espacios al inicio/fin
 
-        if (!deviceType.equals("IOS") && !deviceType.equals("AND")) {
+        if (!deviceType.equalsIgnoreCase("IOS") && !deviceType.equalsIgnoreCase("AND")) {
             throw new ClienteInvalidoException("deviceType inválido");
         }
 

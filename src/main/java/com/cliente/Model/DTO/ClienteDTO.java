@@ -22,13 +22,16 @@ public class ClienteDTO {
 
     @NotBlank
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String nombre;
 
     @NotBlank
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String apellidoPaterno;
 
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String apellidoMaterno;
 
     @JsonIgnore
@@ -36,4 +39,7 @@ public class ClienteDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Boolean estado;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String nombreCompleto;
 }

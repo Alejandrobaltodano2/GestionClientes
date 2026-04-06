@@ -29,6 +29,8 @@ La API permite realizar las siguientes operaciones Crear y Listar.
 3. Ejecuta la aplicación:
     mvn spring-boot:run
 4. La API estará disponible en `http://localhost:8082/clientes`.
+5. Para ingresar a Swagger UI, navega a `localhost:8082/swagger-ui/index.html#/`.
+
 ## Endpoints
 - `POST /api/clientes`: Crea un nuevo cliente.
 - `GET /api/clientes`: Obtiene una lista de todos los clientes.
