@@ -5,7 +5,8 @@ import com.cliente.Exceptions.ClienteInvalidoException;
 import com.cliente.Mappers.ClienteHelper;
 import com.cliente.Mappers.ClienteMapper;
 import com.cliente.Model.Cliente;
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
+import com.cliente.Model.DTO.ClienteResponseDTO;
 import com.cliente.Repository.ClienteRepository;
 import com.cliente.Service.Impl.ClienteServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
@@ -42,7 +42,7 @@ public class ClienteServiceImplTest {
 
     @Test
     void crearCliente_Exito() {
-        ClienteDTO clienteDTO = ClienteHelper.creacionClienteDto();
+        ClientePostDTO clienteDTO = ClienteHelper.creacionClienteDto();
         when(repository.existsByNombreIgnoreCaseAndApellidoPaternoIgnoreCaseAndApellidoMaternoIgnoreCase(clienteDTO.getNombre(), clienteDTO.getApellidoPaterno(), clienteDTO.getApellidoMaterno()))
                 .thenReturn(false);
         when(repository.save(any())).thenReturn(ClienteHelper.clienteEntity_1());
@@ -54,7 +54,7 @@ public class ClienteServiceImplTest {
 
     @Test
     void crearCliente_NombreRepetido() {
-        ClienteDTO clienteDTO = ClienteHelper.creacionClienteDto();
+        ClientePostDTO clienteDTO = ClienteHelper.creacionClienteDto();
         when(repository.existsByNombreIgnoreCaseAndApellidoPaternoIgnoreCaseAndApellidoMaternoIgnoreCase(clienteDTO.getNombre(), clienteDTO.getApellidoPaterno(), clienteDTO.getApellidoMaterno()))
                 .thenReturn(true);
 
@@ -70,12 +70,8 @@ public class ClienteServiceImplTest {
         when(mapper.toDto(any(Cliente.class)))
                 .thenAnswer(invocation -> {
                     Cliente c = invocation.getArgument(0);
-                    return ClienteDTO.builder()
+                    return ClienteResponseDTO.builder()
                             .id(c.getId())
-                            .nombre(c.getNombre())
-                            .apellidoPaterno(c.getApellidoPaterno())
-                            .apellidoMaterno(c.getApellidoMaterno())
-                            .estado(c.getEstado())
                             .build();
                 });
 

@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table
+@Table(name = "cliente")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente {
+
 
     @Id
     private String id;
@@ -27,6 +28,7 @@ public class Cliente {
     @NotBlank
     @Column(nullable = false)
     private String nombre;
+
     @NotBlank
     @Column(nullable = false)
     private String apellidoPaterno;

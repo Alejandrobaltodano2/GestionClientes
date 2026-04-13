@@ -1,6 +1,6 @@
 package com.cliente.Event;
 
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -13,7 +13,7 @@ public class ClienteEventService {
     private static final Logger log = LoggerFactory.getLogger(ClienteEventService.class);
 
     @Async
-    public void enviarEventoCliente(ClienteDTO clienteDTO) {
+    public void enviarEventoCliente(ClientePostDTO clienteDTO) {
         String json = new ObjectMapper().writeValueAsString(clienteDTO);
         log.info("SIMULACION_ENVIO_EVENTO: {}", json);
     }

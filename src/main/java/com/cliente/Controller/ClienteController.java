@@ -1,6 +1,7 @@
 package com.cliente.Controller;
 
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
+import com.cliente.Model.DTO.ClienteResponseDTO;
 import com.cliente.Model.Response.PaginacionResponse;
 import com.cliente.Service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,9 +23,8 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo Cliente", description = "Crea un nuevo cliente con los datos proporcionados")
-
-    public ResponseEntity<ClienteDTO> crearCliente(
-                                                   @RequestBody @Valid ClienteDTO clienteDTO ,
+    public ResponseEntity<Void> crearCliente(
+                                                   @RequestBody @Valid ClientePostDTO clienteDTO ,
                                                    @RequestHeader("consumerId") String consumerId,
                                                    @RequestHeader("traceparent") String traceparent,
                                                    @RequestHeader("deviceType") String deviceType,
@@ -38,14 +38,14 @@ public class ClienteController {
 
     @GetMapping
     @Operation(summary = "Obtener todos los Clientes", description = "Listar todos los clientes registrados")
-    public ResponseEntity<PaginacionResponse<ClienteDTO>> listarClientes(
+    public ResponseEntity<PaginacionResponse<ClienteResponseDTO>> listarClientes(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size ,
             @RequestHeader("consumerId") String consumerId,
             @RequestHeader("traceparent") String traceparent,
             @RequestHeader("deviceType") String deviceType,
             @RequestHeader("deviceId") String deviceId) {
-        PaginacionResponse<ClienteDTO> clientes = service.mostrarTodosClientes(page, size);
+        PaginacionResponse<ClienteResponseDTO> clientes = service.mostrarTodosClientes(page, size);
         return ResponseEntity.ok(clientes);
 
     }

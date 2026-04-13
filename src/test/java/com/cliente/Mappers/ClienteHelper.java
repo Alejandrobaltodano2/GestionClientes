@@ -1,16 +1,16 @@
 package com.cliente.Mappers;
 
 import com.cliente.Model.Cliente;
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
 
 import java.util.List;
 
 public class ClienteHelper {
 
 
-    public static ClienteDTO creacionClienteDto()
+    public static ClientePostDTO creacionClienteDto()
     {
-        return ClienteDTO.builder()
+        return ClientePostDTO.builder()
                 .nombre("Juan")
                 .apellidoPaterno("Perez")
                 .apellidoMaterno("Gomez")

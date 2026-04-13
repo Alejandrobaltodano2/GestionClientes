@@ -1,7 +1,7 @@
 package com.cliente.Model.DTO;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -15,31 +15,26 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteDTO {
+public class ClientePostDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnore
     private String id;
 
     @NotBlank
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String nombre;
 
     @NotBlank
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String apellidoPaterno;
 
+    @NotBlank
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String apellidoMaterno;
+
+
+    private Boolean estado;
 
     @JsonIgnore
     private LocalDateTime fechaCreacion;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Boolean estado;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String nombreCompleto;
 }

@@ -3,7 +3,8 @@ package com.cliente.Service.Impl;
 import com.cliente.Event.ClienteEventService;
 import com.cliente.Mappers.ClienteMapper;
 import com.cliente.Model.Cliente;
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
+import com.cliente.Model.DTO.ClienteResponseDTO;
 import com.cliente.Model.Response.PaginacionResponse;
 import com.cliente.Repository.ClienteRepository;
 import com.cliente.Service.ClienteService;
@@ -34,7 +35,8 @@ public class ClienteServiceImpl implements ClienteService {
 
 
     @Override
-    public void crearCliente(ClienteDTO clienteDTO) {
+    public void crearCliente(ClientePostDTO clienteDTO) {
+        ClienteValidacion.validarCliente(clienteDTO);
         ClienteValidacion.nombreRepetidos(
                 clienteRepository.existsByNombreIgnoreCaseAndApellidoPaternoIgnoreCaseAndApellidoMaternoIgnoreCase(
                         clienteDTO.getNombre(),
@@ -61,7 +63,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public PaginacionResponse<ClienteDTO> mostrarTodosClientes(int page, int size) {
+    public PaginacionResponse<ClienteResponseDTO> mostrarTodosClientes(int page, int size) {
         var pageable = PageRequest.of(page, size);
 
         var clientesPage = clienteRepository.findAll(pageable)
@@ -77,7 +79,7 @@ public class ClienteServiceImpl implements ClienteService {
         return mapToPaginacionResponse(clientesPage);
     }
 
-    private ClienteDTO toClienteDtoConNombreCompleto(Cliente cliente) {
+    private ClienteResponseDTO toClienteDtoConNombreCompleto(Cliente cliente) {
         var dto = mapper.toDto(cliente);
         dto.setNombreCompleto(
                 "%s %s %s".formatted(
@@ -90,8 +92,8 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
 
-    private PaginacionResponse<ClienteDTO> mapToPaginacionResponse(Page<ClienteDTO> clientesPage) {
-        var response = new PaginacionResponse<ClienteDTO>();
+    private PaginacionResponse<ClienteResponseDTO> mapToPaginacionResponse(Page<ClienteResponseDTO> clientesPage) {
+        var response = new PaginacionResponse<ClienteResponseDTO>();
         response.setContent(clientesPage.getContent());
         response.setTotalPages(clientesPage.getTotalPages());
         response.setTotalElements(clientesPage.getTotalElements());

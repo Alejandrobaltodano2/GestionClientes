@@ -1,12 +1,13 @@
 package com.cliente.Service;
 
-import com.cliente.Model.DTO.ClienteDTO;
+import com.cliente.Model.DTO.ClientePostDTO;
+import com.cliente.Model.DTO.ClienteResponseDTO;
 import com.cliente.Model.Response.PaginacionResponse;
 
 
 public interface ClienteService {
 
-    void crearCliente(ClienteDTO clienteDTO);
-    PaginacionResponse<ClienteDTO> mostrarTodosClientes(int page , int size);
+    void crearCliente(ClientePostDTO clienteDTO);
+    PaginacionResponse<ClienteResponseDTO> mostrarTodosClientes(int page , int size);
 
 }
